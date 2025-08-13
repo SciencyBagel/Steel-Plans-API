@@ -1,0 +1,4 @@
+exclude .gitignore
+exclude .gitlab-ci.yaml
+global-exclude *.py[cod] .DS_Store
+prune */__pycache__

@@ -1,0 +1,32 @@
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# https://pip.pypa.io/en/stable/topics/caching/
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python --version ; pip --version  # For debugging
+
+stages:
+  - test
+  - build
+  - release
+
+test:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install .[dev]
+    - pytest
+
+build:
+  stage: build
+  image: python:3.11
+  script:
+    - pip install build
+    - python -m build
+  artifacts:
+    paths:
+      - dist/

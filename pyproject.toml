@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm[simple]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "steel-plans-api"
+dynamic = ["version"]
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+  "fastapi[standard]",
+  "uvicorn[standard]",
+  "numpy",
+  "openpyxl",
+  "pandas",
+  "pydantic",
+  "sqlalchemy",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+]
+
+[tool.setuptools.packages.find]
+include = ["steel_plans_api*", "tests"]
+
+[project.scripts]
+steel-plans-api = "steel_plans_api.__main__:main"
+
+[tool.setuptools_scm]
