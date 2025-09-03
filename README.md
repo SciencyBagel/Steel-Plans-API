@@ -1,5 +1,5 @@
 # README
-This is my attempt at the hiring challenge.
+WIP
 
 ## Requirements
 Please use python 3.12 or higher.
