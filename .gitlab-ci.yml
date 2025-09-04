@@ -1,32 +1,14 @@
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-
-# https://pip.pypa.io/en/stable/topics/caching/
-cache:
-  paths:
-    - .cache/pip
-
-before_script:
-  - python --version ; pip --version  # For debugging
+image: python:3.12-slim
 
 stages:
   - test
-  - build
-  - release
 
-test:
+before_script:
+  - python --version       # Show Python version in logs (debugging)
+  - pip install --upgrade pip
+  - pip install -e .[dev]  # Install your package in editable mode + dev extras (includes pytest)
+
+pytest:
   stage: test
-  image: python:3.11
   script:
-    - pip install .[dev]
-    - pytest
-
-build:
-  stage: build
-  image: python:3.11
-  script:
-    - pip install build
-    - python -m build
-  artifacts:
-    paths:
-      - dist/
+    - pytest -q            # Run your tests; -q for quieter output
