@@ -26,8 +26,12 @@ dev = [
   "flake8>=7.3.0"
 ]
 
+[project.urls]
+Homepage = "https://github.com/SciencyBagel/Steel-Plans-API"
+Issues = "https://github.com/SciencyBagel/Steel-Plans-API/issues"
+
 [tool.setuptools.packages.find]
-include = ["steel_plans_api*", "tests"]
+include = ["steel_plans_api"]
 
 [project.scripts]
 steel-plans-api = "steel_plans_api.__main__:main"
