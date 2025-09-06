@@ -6,21 +6,23 @@ build-backend = "setuptools.build_meta"
 name = "steel-plans-api"
 dynamic = ["version"]
 readme = "README.md"
+description = "REST API for steel production forecasts"
+keywords = ["fastapi", "forecasting", "steel", "api"]
 requires-python = ">=3.12"
 
 dependencies = [
-  "fastapi[standard]",
-  "uvicorn[standard]",
-  "numpy",
-  "openpyxl",
-  "pandas",
-  "pydantic",
-  "sqlalchemy",
+  "fastapi[standard]>=0.116.1",
+  "uvicorn[standard]>=0.35.0",
+  "numpy>=2.3.2",
+  "openpyxl>=3.1.5",
+  "pandas>=2.3.1",
+  "pydantic>=2.11.7",
+  "sqlalchemy>=2.0.43",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "pytest",
+  "pytest>=8.4.1",
 ]
 
 [tool.setuptools.packages.find]
