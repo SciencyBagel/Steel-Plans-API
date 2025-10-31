@@ -33,8 +33,8 @@ async def upload_file(type_of_file: UploadFileType, file: UploadFile, conn: db.C
     """Uploads a file to the Steel Production and Order Database"""
 
     try:
-        save_file_to_db = create_db_pipeline(type_of_file)
-        rows = save_file_to_db(conn, file.file)
+        save_file_to_conn = create_db_pipeline(type_of_file)
+        rows = save_file_to_conn(file.file, conn)
 
     except IntegrityError:
         # since post method, will return 409 (conflict) if integrity error

@@ -53,7 +53,7 @@ def seeded_db(data_dir, db_conn):
     for file_type in list(UploadFileType):
         with open(data_dir / file_type.value, 'rb') as f:
             save_file_to_db = create_db_pipeline(file_type)
-            save_file_to_db(db_conn, f)
+            save_file_to_db(f, db_conn)
 
     return db_conn
 

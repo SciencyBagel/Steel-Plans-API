@@ -1,5 +1,6 @@
 import datetime
 from typing import Annotated
+import typing
 
 import numpy as np
 import pandas as pd
@@ -43,14 +44,14 @@ def _normalize(base):
 def _do_forecast_breakdown(omf_df: pd.DataFrame, pm_df: pd.DataFrame, m_period: pd.Period) -> list[
     ForecastProductionGroup]:
     """
-    
+
     Args:
         omf_df: The order forecast for the target month
         pm_df: Historical mothly steel production data
-    
+
     Returns:
         Forecasts per group, broken down by grades for the target month
-        
+
     """
 
     pm_df['proportion'] = (
@@ -98,7 +99,8 @@ def _do_forecast_breakdown(omf_df: pd.DataFrame, pm_df: pd.DataFrame, m_period: 
                 ascending=[False, True]
             )  # type: ignore
 
-            col_idx = group_prod_forecast.columns.get_loc('heats')
+            # note: this was being stubborn so i just casted this to an integer
+            col_idx = typing.cast(int, group_prod_forecast.columns.get_loc('heats'))
             for i in range(int(remainder)):
                 group_prod_forecast.iat[i, col_idx] += 1
 
@@ -112,7 +114,7 @@ def _do_forecast_breakdown(omf_df: pd.DataFrame, pm_df: pd.DataFrame, m_period: 
 
         # save to pyantic model for decoupling pandas from endpoints
         # and make it easier to know what output structure to expect)
-        grades = [ForecastProductionGrade(**grade) for _, grade in group_prod_forecast.iterrows()]
+        grades = [ForecastProductionGrade(**grade.to_dict()) for _, grade in group_prod_forecast.iterrows()]
 
         fpg = ForecastProductionGroup(
             group=QualityGroup(quality_group),
